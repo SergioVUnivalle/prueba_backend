@@ -57,7 +57,7 @@ Se valorará:
 
 Este proyecto es una API REST construida con Django 5.2.1, diseñada para manejar datos geográficos usando PostGIS y QGIS. Incluye autenticación con JWT y funcionalidades geoespaciales expuestas a través de endpoints protegidos.
 
-## Tecnologías utilizadas
+### Tecnologías utilizadas
 
 Python 3.12
 Django 5.2.1
@@ -67,27 +67,27 @@ QGIS 3.34 - GDAL
 JWT Authentication
 
 
-## Pasos para ejecutar el proyecto
+### Pasos para ejecutar el proyecto
 
-## Requisitos
+### Requisitos
 
 Python 3.12 o superior
 PostgreSQL con extensión **PostGIS**  
 virtualenv  
 Git  
 
-## Configuración inicial
+### Configuración inicial
 
 **Clonar el repositorio:**
 
 git clone
 cd PRUEBAINGRESO_BACK
 
-## Crear el ambiente
+### Crear el ambiente
 python -m venv venv
-## Activar ambiente
+### Activar ambiente
 source venv/bin/activate  # En Windows: venv\Scripts\activate
-## Instalar requerimientos
+### Instalar requerimientos
 pip install -r requirements.txt
 
 CREATE DATABASE prueba_tecnica;
@@ -95,13 +95,13 @@ CREATE DATABASE prueba_tecnica;
 CREATE EXTENSION postgis;
 
 
-## Endpoints desarrollados
+### Endpoints desarrollados
 Autenticación con JWT
 
-## GET /api/municipios/<nombre_departamento>/
+### GET /api/municipios/<nombre_departamento>/
 Retorna los municipios del departamento dado.
 
-## GET /api/oficina/<id>/municipio/
+### GET /api/oficina/<id>/municipio/
 Retorna la geometría en formato GeoJSON del municipio en el que se encuentra la oficina con el ID indicado.
 
 Notas adicionales
