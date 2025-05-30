@@ -53,6 +53,8 @@ Se valorará:
 
 
 
+
+
 # Prueba Técnica - Backend GIS con Django y PostGIS
 
 Este proyecto es una API REST construida con Django 5.2.1, diseñada para manejar datos geográficos usando PostGIS y QGIS. Incluye autenticación con JWT y funcionalidades geoespaciales expuestas a través de endpoints protegidos.
