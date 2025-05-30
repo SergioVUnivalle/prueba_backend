@@ -49,3 +49,65 @@ Se valorará:
 ---
 
 💡 Se recomienda mantener el código limpio, comentado y seguir los principios de desarrollo sostenible.
+
+
+
+
+# Prueba Técnica - Backend GIS con Django y PostGIS
+
+Este proyecto es una API REST construida con Django 5.2.1, diseñada para manejar datos geográficos usando PostGIS y QGIS. Incluye autenticación con JWT y funcionalidades geoespaciales expuestas a través de endpoints protegidos.
+
+---
+
+## Tecnologías utilizadas
+
+Python 3.12
+Django 5.2.1
+Django REST Framework
+PostGIS (PostgreSQL)
+QGIS 3.34 - GDAL
+JWT Authentication
+
+---
+
+## Pasos para ejecutar el proyecto
+
+### Requisitos
+
+Python 3.12 o superior
+PostgreSQL con extensión **PostGIS**  
+virtualenv  
+Git  
+
+---
+
+### Configuración inicial
+
+1. **Clonar el repositorio:**
+
+git clone
+cd PRUEBAINGRESO_BACK
+
+# Crear el ambiente
+python -m venv venv
+# Activar ambiente
+source venv/bin/activate  # En Windows: venv\Scripts\activate
+# Instalar requerimientos
+pip install -r requirements.txt
+
+CREATE DATABASE prueba_tecnica;
+\c prueba_tecnica
+CREATE EXTENSION postgis;
+
+
+## Endpoints desarrollados
+Autenticación con JWT
+
+# GET /api/municipios/<nombre_departamento>/
+Retorna los municipios del departamento dado.
+
+# GET /api/oficina/<id>/municipio/
+Retorna la geometría en formato GeoJSON del municipio en el que se encuentra la oficina con el ID indicado.
+
+Notas adicionales
+La versión de Django requerió una versión de GDAL, se usó el  Python de QGIS 3.34.13 para el uso de GDAL

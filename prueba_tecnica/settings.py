@@ -11,26 +11,27 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
+import os
+import sys
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# ===================================
+# Base Directory
+# ===================================
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+g13+)r(!c^y)ff(4&3yisb47%ztq$@(-+j8oscrg2f8eyhasl'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+# ===================================
+# Security Settings
+# ===================================
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = []
 
-
-# Application definition
-
+# ===================================
+# Application Definition
+# ===================================
 INSTALLED_APPS = [
+    # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,9 +40,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'django.contrib.postgres',
+
+    # Third-party apps
     'rest_framework',
     'rest_framework_gis',
     'rest_framework_simplejwt',
+
+    # Local apps
+    'prueba_tecnica',
+    'core',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -73,28 +81,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'prueba_tecnica.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
+# ===================================
+# Database Configuration
+# ===================================
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'HOST': "",
-        'PORT': "",
-        'OPTIONS': {
-            'options': "-c search_path=public"
-        },
-        'NAME': "",
-        'USER': "",
-        'PASSWORD': "",
-    },
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default='5432'),
+    }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
+# ===================================
+# Password Validation
+# ===================================
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -110,25 +113,47 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+# ===================================
 # Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
+# ===================================
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
+# ===================================
+# Static Files
+# ===================================
 STATIC_URL = 'static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
+# ===================================
+# Default Primary Key Field Type
+# ===================================
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ===================================
+# QGIS & GDAL Setup
+# ===================================
+QGIS_PATH = r"C:\Program Files\QGIS 3.34.13"
+PYTHON_SITEPACKAGES = QGIS_PATH + r"\apps\Python312\Lib\site-packages"
+GDAL_DLL_PATH = QGIS_PATH + r"\bin\gdal310.dll"
+
+os.environ['PATH'] = (
+    QGIS_PATH + r"\bin;" +
+    QGIS_PATH + r"\apps\Qt5\bin;" +
+    os.environ['PATH']
+)
+os.environ['GDAL_LIBRARY_PATH'] = GDAL_DLL_PATH
+sys.path.append(PYTHON_SITEPACKAGES)
+
+# ===================================
+# Django REST Framework Configuration
+# ===================================
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
