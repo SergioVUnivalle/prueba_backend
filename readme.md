@@ -78,7 +78,7 @@ Git
 
 ## Configuración inicial
 
-1. **Clonar el repositorio:**
+**Clonar el repositorio:**
 
 git clone
 cd PRUEBAINGRESO_BACK
